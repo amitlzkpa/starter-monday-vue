@@ -7,8 +7,9 @@ const COPY_URL = process.env.COPY_URL;
 
 (async function() {
   const url = await ngrok.connect(PORT);
+  console.log(`ngrok url: ${url}`);
   if (COPY_URL) {
-    console.log(`Copying URL to clipboard: ${url}`);
     clipboardy.writeSync(url);
+    console.log(`Copied url to clipboard.`);
   }
 })();
