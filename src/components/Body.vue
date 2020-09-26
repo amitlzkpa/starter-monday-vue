@@ -1,9 +1,10 @@
 <template>
   <div>
-    <p v-if="name !== null">
-      Hello {{ name }}
+    <h1>Monday Vue Starter</h1>
+    <button @click="apiTest">API Test</button>
+    <p>
+      {{ text }}
     </p>
-    <button @click="onBtnClick">Click me</button>
   </div>
 </template>
 
@@ -11,16 +12,17 @@
 export default {
   data () {
     return {
-      name: null
+      text: null
     };
   },
-  async mounted () {
-    const res = await this.monday.api('query { me { name } }');
-    this.name = res.data.me.name;
-  },
   methods: {
-    async onBtnClick () {
-      console.log('foo');
+    async apiTest () {
+      try {
+        const res = await this.monday.api('query { me { name } }');
+        this.text = `Hello ${res.data.me.name}`;
+      } catch {
+        this.text = `Error. Make sure you app has permissions for API.`
+      }
     }
   }
 }
